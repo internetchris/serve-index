@@ -241,53 +241,38 @@ function htmlPath(dir) {
 function iconLookup(filename) {
   var ext = extname(filename);
 
-  // try by extension
-  if (icons[ext]) {
+  // check for speedtestnet specific files
+  if (filename.indexOf("wp") > -1) {
     return {
-      className: 'icon-' + ext.substring(1),
-      fileName: icons[ext]
+      className: 'fa fa-windows sticon',
+      fileName: "placeholder.png"
     };
   }
 
-  var mimetype = mime.lookup(ext);
-
-  // default if no mime type
-  if (mimetype === false) {
+  if (filename.indexOf("android") > -1) {
+    console.log( icons.default);
     return {
-      className: 'icon-default',
-      fileName: icons.default
+      className: 'fa fa-android sticon',
+      fileName: "placeholder.png"
     };
   }
 
-  // try by mime type
-  if (icons[mimetype]) {
+  if (filename.indexOf("iphone") > -1) {
     return {
-      className: 'icon-' + mimetype.replace('/', '-'),
-      fileName: icons[mimetype]
+      className: 'fa fa-apple sticon',
+      fileName: "placeholder.png"
     };
   }
 
-  var suffix = mimetype.split('+')[1];
-
-  if (suffix && icons['+' + suffix]) {
+  if (filename.indexOf("stnet") > -1) {
     return {
-      className: 'icon-' + suffix,
-      fileName: icons['+' + suffix]
-    };
-  }
-
-  var type = mimetype.split('/')[0];
-
-  // try by type only
-  if (icons[type]) {
-    return {
-      className: 'icon-' + type,
-      fileName: icons[type]
+      className: 'fa fa-desktop sticon',
+      fileName: "placeholder.png"
     };
   }
 
   return {
-    className: 'icon-default',
+    className: 'fa fa-file-o',
     fileName: icons.default
   };
 }
@@ -358,7 +343,7 @@ function html(files, dir, useIcons, view) {
       classes.push('icon');
 
       if (isDir) {
-        classes.push('icon-directory');
+        classes.push('icon-directory fa fa-folder');
       } else {
         var ext = extname(file.name);
         var icon = iconLookup(file.name);
