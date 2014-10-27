@@ -327,13 +327,13 @@ function iconStyle (files, useIcons) {
  */
 
 function html(files, dir, useIcons, view) {
-  return '<ul id="files" class="view-' + view + '">'
+  return '<table id="files" class="view-' + view + '">'
     + (view == 'details' ? (
-      '<li class="header">'
-      + '<span class="name">Name</span>'
-      + '<span class="size">Size</span>'
-      + '<span class="date">Modified</span>'
-      + '</li>') : '')
+      '<tr class="header">'
+      + '<th class="name">Name</th>'
+      + '<th class="size">Size</th>'
+      + '<th class="date">Modified</th>'
+      + '</tr>') : '')
     + files.map(function(file){
     var isDir = '..' == file.name || (file.stat && file.stat.isDirectory())
       , classes = []
@@ -366,15 +366,15 @@ function html(files, dir, useIcons, view) {
       ? file.stat.size
       : '';
 
-    return '<li><a href="'
+    return '<tr><a href="'
       + normalizeSlashes(normalize(path.join('/')))
       + '" class="'
       + classes.join(' ') + '"'
       + ' title="' + file.name + '">'
-      + '<span class="name">'+file.name+'</span>'
-      + '<span class="size">'+size+'</span>'
-      + '<span class="date">'+date+'</span>'
-      + '</a></li>';
+      + '<td class="name">'+file.name+'</td>'
+      + '<td class="size">'+size+'</td>'
+      + '<td class="date">'+date+'</td>'
+      + '</a></tr>';
 
   }).join('\n') + '</ul>';
 }
